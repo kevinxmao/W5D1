@@ -3,12 +3,20 @@ class Integer
 end
 
 class Array
+
   def hash
+    hash_key = 123
+    self.each.with_index do |ele, i|
+      hash_key += (i.hash ^ ele.hash)
+    end
+    hash_key
   end
 end
 
 class String
   def hash
+  #   chars = self.split("")
+  #   chars.hash 
   end
 end
 

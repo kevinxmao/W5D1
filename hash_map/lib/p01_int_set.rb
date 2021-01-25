@@ -93,6 +93,10 @@ class ResizingIntSet
   end
 
   def remove(num)
+    if include?(num) 
+      self[num].delete(num)
+      @count -=1
+    end
   end
 
   def include?(num)
@@ -115,7 +119,8 @@ class ResizingIntSet
     @store += Array.new(num_buckets) { Array.new }
     (0...@store.length / 2).each do |i|
       @store[i].each do |ele|
-        self[ele] << ele
+        @store[i].delete(ele)
+        self[ele] << ele 
       end
     end
   end
