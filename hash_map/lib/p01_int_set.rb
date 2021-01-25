@@ -1,14 +1,21 @@
 class MaxIntSet
   def initialize(max)
+    @store = Array.new(max, false)
   end
 
   def insert(num)
+    raise if num >  @store.length
+    @store[num] = true
   end
 
   def remove(num)
   end
 
   def include?(num)
+    @store.each do |ele| 
+      return true if num == ele
+    end
+    return false
   end
 
   private
