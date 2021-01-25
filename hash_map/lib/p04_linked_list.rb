@@ -16,7 +16,7 @@ class Node
   def remove
     prev_node = prev
     prev_node.next = self.next
-
+    self.next.prev = prev_node
     # optional but useful, connects previous link to next link
     # and removes self from list.
   end
@@ -50,9 +50,13 @@ class LinkedList
   end
 
   def get(key)
+    self.each {|node| return node.val if node.key == key}
+    nil
   end
 
   def include?(key)
+    self.each {|node| return true if node.key == key}
+    false
   end
 
   def append(key, val)
@@ -69,9 +73,11 @@ class LinkedList
   end
 
   def update(key, val)
+    self.each {|node|  node.val = val if node.key == key}
   end
 
   def remove(key)
+    self.each {|node| node.remove if node.key == key}
   end
 
   def each
