@@ -24,9 +24,10 @@ end
 
 class LinkedList
   include Enumerable
+
   def initialize
-    @head = Node.new
-    @tail = Node.new
+    @head = Node.new # sentinel
+    @tail = Node.new # sentinel
     @head.next = @tail
     @tail.prev = @head
   end
@@ -37,11 +38,11 @@ class LinkedList
   end
 
   def first
-    @head
+    @head.next
   end
 
   def last
-    @tail
+    @tail.prev
   end
 
   def empty?
@@ -55,7 +56,16 @@ class LinkedList
   end
 
   def append(key, val)
-  
+    # create a node with key, val
+    # set last's next to this item
+    # set this item's next to dummy tail
+    # set dummy tail's prev to this item
+    new_node = Node.new(key, val)
+    last.next = new_node
+    old_last = last # make a temp pointer to the old last node
+    new_node.next = @tail
+    @tail.prev = new_node
+    new_node.prev = old_last
   end
 
   def update(key, val)
@@ -65,6 +75,11 @@ class LinkedList
   end
 
   def each
+    ptr = first
+    until ptr == @tail
+      yield ptr
+      ptr = ptr.next
+    end
   end
 
   # uncomment when you have `each` working and `Enumerable` included
@@ -72,3 +87,6 @@ class LinkedList
   #   inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
   # end
 end
+
+# linked list consists of nodes
+
