@@ -15,8 +15,9 @@ end
 
 class String
   def hash
-  #   chars = self.split("")
-  #   chars.hash 
+    chars = self.split("")
+    # chars.each.with_index { |char| char.to_i.hash }
+    chars.map(&:to_i).hash
   end
 end
 
